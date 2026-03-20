@@ -1,6 +1,10 @@
 import { JobResponse, JobStatusResponse, ScrapeRequest } from "@/types";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8000";
+const API_BASE =
+  process.env.NEXT_PUBLIC_API_BASE_URL ||
+  (process.env.NODE_ENV === "production"
+    ? "/api/backend"
+    : "http://localhost:8000");
 
 export async function startScrapeJob(body: ScrapeRequest): Promise<JobResponse> {
   const res = await fetch(`${API_BASE}/scrape/async`, {

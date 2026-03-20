@@ -111,7 +111,7 @@ export default function SearchBar({ onJobComplete }: SearchBarProps) {
     <div className="w-full">
       <form onSubmit={handleSubmit} className="space-y-3">
         {/* Main search row */}
-        <div className="flex gap-2">
+        <div className="flex flex-col sm:flex-row gap-2">
           <div className="relative flex-1">
             <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-text-dim pointer-events-none" />
             <input
@@ -124,11 +124,11 @@ export default function SearchBar({ onJobComplete }: SearchBarProps) {
           </div>
 
           {/* Max leads */}
-          <div className="relative">
+          <div className="relative w-full sm:w-auto">
             <select
               value={maxLeads}
               onChange={(e) => setMaxLeads(Number(e.target.value))}
-              className="h-full bg-surface-2 border border-border hover:border-border-bright text-text-primary text-xs font-mono px-3 py-3 rounded-xl outline-none focus:border-amber-500/60 transition-colors cursor-pointer appearance-none pr-7"
+              className="w-full sm:w-auto h-full bg-surface-2 border border-border hover:border-border-bright text-text-primary text-xs font-mono px-3 py-3 rounded-xl outline-none focus:border-amber-500/60 transition-colors cursor-pointer appearance-none pr-7"
             >
               {[5, 10, 20, 50, 100].map((n) => (
                 <option key={n} value={n}>{n} leads</option>
@@ -140,7 +140,7 @@ export default function SearchBar({ onJobComplete }: SearchBarProps) {
           <button
             type="submit"
             disabled={loading || !query.trim()}
-            className="flex items-center gap-2 px-5 py-3 bg-amber-500 hover:bg-amber-400 disabled:opacity-40 disabled:cursor-not-allowed text-black text-sm font-mono font-bold rounded-xl transition-all duration-150 animate-pulse-amber whitespace-nowrap"
+            className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-3 bg-amber-500 hover:bg-amber-400 disabled:opacity-40 disabled:cursor-not-allowed text-black text-sm font-mono font-bold rounded-xl transition-all duration-150 animate-pulse-amber whitespace-nowrap"
           >
             {loading ? (
               <Loader2 className="w-4 h-4 animate-spin" />
@@ -152,7 +152,7 @@ export default function SearchBar({ onJobComplete }: SearchBarProps) {
         </div>
 
         {/* Toggles row */}
-        <div className="flex items-center gap-4 pl-1">
+        <div className="flex flex-wrap items-center gap-2 pl-1">
           <ToggleOption
             icon={<Globe className="w-3.5 h-3.5" />}
             label="Website Scraping"
@@ -223,7 +223,7 @@ function ToggleOption({
     <button
       type="button"
       onClick={() => onChange(!enabled)}
-      className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg border text-xs font-mono transition-all duration-150 ${
+      className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg border text-xs font-mono transition-all duration-150 w-full sm:w-auto ${
         enabled
           ? "bg-amber-500/10 border-amber-500/30 text-amber-400"
           : "bg-surface-2 border-border text-text-dim hover:text-text-muted"

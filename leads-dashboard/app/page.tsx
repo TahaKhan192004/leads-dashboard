@@ -148,7 +148,7 @@ export default function DashboardPage() {
     <div className="min-h-screen">
       {/* Top nav */}
       <header className="sticky top-0 z-40 bg-bg/80 backdrop-blur-md border-b border-border">
-        <div className="max-w-screen-2xl mx-auto px-6 py-3 flex items-center justify-between gap-4">
+        <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <div className="flex items-center gap-3">
             <div className="w-7 h-7 rounded-lg bg-amber-500 flex items-center justify-center">
               <Map className="w-3.5 h-3.5 text-black" />
@@ -161,7 +161,7 @@ export default function DashboardPage() {
             </span>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center justify-between sm:justify-end gap-2 w-full sm:w-auto">
             <button
               onClick={() => fetchLeads({ silent: true })}
               disabled={refreshing}
@@ -193,9 +193,9 @@ export default function DashboardPage() {
         </div>
       </header>
 
-      <main className="max-w-screen-2xl mx-auto px-6 py-8 space-y-8">
+      <main className="max-w-screen-2xl mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-6 sm:space-y-8">
         {/* Stats row */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
           <StatCard
             icon={<TrendingUp className="w-4 h-4" />}
             label="Total Leads"

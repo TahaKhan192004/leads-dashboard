@@ -67,7 +67,18 @@ export default function LeadsTable({ leads, onLeadUpdate }: LeadsTableProps) {
 
   return (
     <>
-      <div className="overflow-x-auto rounded-xl border border-border">
+      <div className="md:hidden space-y-3">
+        {leads.map((lead) => (
+          <MobileLeadCard
+            key={lead.id}
+            lead={lead}
+            onOpenNotes={() => setNotesLead(lead)}
+            onOpenAi={() => setAiLead(lead)}
+          />
+        ))}
+      </div>
+
+      <div className="hidden md:block overflow-x-auto rounded-xl border border-border">
         <table className="w-full text-sm min-w-[900px]">
           <thead>
             <tr className="border-b border-border bg-surface-2">
@@ -275,5 +286,118 @@ function LeadRow({
         </td>
       </tr>
     </>
+  );
+}
+
+function MobileLeadCard({
+  lead,
+  onOpenNotes,
+  onOpenAi,
+}: {
+  lead: Lead;
+  onOpenNotes: () => void;
+  onOpenAi: () => void;
+}) {
+  const hasNotes = lead.notes && lead.notes.trim().length > 0;
+
+  return (
+    <div className="bg-surface border border-border rounded-xl p-4 space-y-3">
+      <div className="flex items-start justify-between gap-2">
+        <div className="min-w-0">
+          <p className="text-text-primary font-mono text-sm font-semibold truncate">
+            {lead.business_name || <span className="text-text-dim">Unnamed</span>}
+          </p>
+          {lead.website && (
+            <a
+              href={lead.website.startsWith("http") ? lead.website : `https://${lead.website}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1 text-amber-400/80 hover:text-amber-400 text-xs font-mono transition-colors truncate mt-1"
+            >
+              <Globe className="w-3 h-3 flex-shrink-0" />
+              <span className="truncate">
+                {lead.website.replace(/^https?:\/\//i, "").split("/")[0]}
+              </span>
+            </a>
+          )}
+        </div>
+        <div className="flex flex-col items-end gap-2">
+          <RatingBadge rating={lead.rating} />
+          {lead.keyword ? (
+            <span className="px-2 py-0.5 bg-surface-3 border border-border rounded-md text-text-muted text-[10px] font-mono whitespace-nowrap">
+              {lead.keyword}
+            </span>
+          ) : null}
+        </div>
+      </div>
+
+      <div className="space-y-2 text-xs font-mono text-text-muted">
+        {lead.phone ? (
+          <a
+            href={`tel:${lead.phone}`}
+            className="flex items-center gap-1.5 text-text-muted hover:text-text-primary transition-colors"
+          >
+            <Phone className="w-3 h-3 flex-shrink-0" />
+            {lead.phone}
+          </a>
+        ) : (
+          <span className="text-text-dim">No phone</span>
+        )}
+
+        {lead.address ? (
+          <div className="flex items-start gap-1">
+            <MapPin className="w-3 h-3 text-text-dim flex-shrink-0 mt-0.5" />
+            <span className="leading-snug line-clamp-2">{lead.address}</span>
+          </div>
+        ) : (
+          <span className="text-text-dim">No address</span>
+        )}
+
+        <span className="flex items-center gap-1 text-text-dim">
+          <Calendar className="w-3 h-3" />
+          {formatDate(lead.created_at)}
+        </span>
+      </div>
+
+      <div className="flex flex-wrap items-center gap-2">
+        <EmailDropdown emails={lead.emails} firecrawlEmails={lead.firecrawl_emails} />
+        <SocialsIcons socials={lead.socials} />
+      </div>
+
+      <div className="flex flex-wrap items-center gap-2">
+        <button
+          onClick={onOpenNotes}
+          className={`flex items-center gap-1.5 px-2 py-1 rounded-md border text-xs font-mono transition-all duration-150 ${
+            hasNotes
+              ? "bg-amber-500/10 border-amber-500/30 text-amber-400 hover:bg-amber-500/20"
+              : "bg-surface-3 border-border text-text-dim hover:text-text-muted hover:border-border-bright"
+          }`}
+        >
+          <FileText className="w-3 h-3" />
+          {hasNotes ? "Edit" : "Add"}
+        </button>
+        {lead.business_summary && (
+          <button
+            onClick={onOpenAi}
+            className="flex items-center gap-1 px-2 py-1 rounded-md border border-amber-500/20 bg-amber-500/5 text-amber-400 hover:bg-amber-500/15 text-xs font-mono transition-all duration-150"
+            title="View AI context"
+          >
+            <Sparkles className="w-3 h-3" />
+            AI
+          </button>
+        )}
+        {lead.maps_url && (
+          <a
+            href={lead.maps_url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-1 rounded-md border border-border hover:border-border-bright text-text-dim hover:text-text-muted transition-all"
+            title="Open in Google Maps"
+          >
+            <ExternalLink className="w-3 h-3" />
+          </a>
+        )}
+      </div>
+    </div>
   );
 }

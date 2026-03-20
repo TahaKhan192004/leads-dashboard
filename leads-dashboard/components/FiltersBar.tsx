@@ -48,10 +48,10 @@ export default function FiltersBar({
   }
 
   const selectClass =
-    "bg-surface-2 border border-border hover:border-border-bright text-text-primary text-xs font-mono px-3 py-2 rounded-lg outline-none focus:border-amber-500/50 transition-colors cursor-pointer appearance-none pr-8";
+    "w-full sm:w-auto bg-surface-2 border border-border hover:border-border-bright text-text-primary text-xs font-mono px-3 py-2 rounded-lg outline-none focus:border-amber-500/50 transition-colors cursor-pointer appearance-none pr-8";
 
   return (
-    <div className="flex flex-wrap items-center gap-3">
+    <div className="flex flex-col sm:flex-row sm:items-center gap-3">
       {/* Total count */}
       <div className="flex items-center gap-1.5 text-text-dim text-xs font-mono mr-1">
         <span className="text-amber-400 font-semibold">{total.toLocaleString()}</span>
@@ -62,7 +62,7 @@ export default function FiltersBar({
 
       {/* Keyword filter */}
       {keywords.length > 0 && (
-        <div className="relative flex items-center">
+        <div className="relative flex items-center w-full sm:w-auto">
           <Tag className="absolute left-2.5 w-3 h-3 text-text-dim pointer-events-none" />
           <select
             value={selectedKeyword}
@@ -80,7 +80,7 @@ export default function FiltersBar({
       )}
 
       {/* Email filter */}
-      <div className="relative flex items-center">
+      <div className="relative flex items-center w-full sm:w-auto">
         <Filter className="absolute left-2.5 w-3 h-3 text-text-dim pointer-events-none" />
         <select
           value={emailFilter}
@@ -96,7 +96,7 @@ export default function FiltersBar({
       </div>
 
       {/* Sort field */}
-      <div className="relative flex items-center">
+      <div className="relative flex items-center w-full sm:w-auto">
         <ArrowUpDown className="absolute left-2.5 w-3 h-3 text-text-dim pointer-events-none" />
         <select
           value={sortField}
@@ -114,7 +114,7 @@ export default function FiltersBar({
       {/* Sort order toggle */}
       <button
         onClick={toggleSortOrder}
-        className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-surface-2 border border-border hover:border-border-bright text-text-muted hover:text-text-primary text-xs font-mono transition-all duration-150"
+        className="flex items-center justify-center gap-1.5 w-full sm:w-auto px-3 py-2 rounded-lg bg-surface-2 border border-border hover:border-border-bright text-text-muted hover:text-text-primary text-xs font-mono transition-all duration-150"
         title={sortOrder === "desc" ? "Newest first" : "Oldest first"}
       >
         {sortOrder === "desc" ? (

@@ -31,7 +31,7 @@ export default function Pagination({ page, totalPages, onPageChange, limit, tota
   }
 
   return (
-    <div className="flex flex-wrap items-center justify-between gap-4 px-1">
+    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 px-1">
       <p className="text-text-dim text-xs font-mono">
         Showing{" "}
         <span className="text-text-primary">{from}–{to}</span>{" "}
@@ -39,7 +39,7 @@ export default function Pagination({ page, totalPages, onPageChange, limit, tota
         <span className="text-text-primary">{total.toLocaleString()}</span>
       </p>
 
-      <div className="flex items-center gap-1">
+      <div className="flex flex-wrap items-center justify-center sm:justify-end gap-1 w-full sm:w-auto">
         <button
           onClick={() => onPageChange(page - 1)}
           disabled={page === 1}
