@@ -130,7 +130,7 @@ export default function SearchBar({ onJobComplete }: SearchBarProps) {
               onChange={(e) => setMaxLeads(Number(e.target.value))}
               className="w-full sm:w-auto h-full bg-surface-2 border border-border hover:border-border-bright text-text-primary text-xs font-mono px-3 py-3 rounded-xl outline-none focus:border-amber-500/60 transition-colors cursor-pointer appearance-none pr-7"
             >
-              {[5, 10, 20, 50, 100].map((n) => (
+              {[5, 10, 15,20].map((n) => (
                 <option key={n} value={n}>{n} leads</option>
               ))}
             </select>
